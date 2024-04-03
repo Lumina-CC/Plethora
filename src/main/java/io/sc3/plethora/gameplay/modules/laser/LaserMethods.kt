@@ -56,12 +56,12 @@ object LaserMethods {
       laser.setShooter(entity, profile)
 
       if (ctx.hasContext(BlockEntity::class.java) || ctx.hasContext(ITurtleAccess::class.java)) {
-          laser.setPosition(pos.add(Vec3d(0.5, 0.5, 0.5)))
-          laser.setPosition(pos.add(Vec3d(
-            MathHelper.clamp(motionX*1.25, -0.75, 0.75),
-            MathHelper.clamp(motionY*1.25, -0.75, 0.75),
-            MathHelper.clamp(motionZ*1.25, -0.75, 0.75)
-          )))
+        laser.setPosition(pos.add(Vec3d(0.5, 0.5, 0.5)))
+        laser.setPosition(pos.add(Vec3d(
+          MathHelper.clamp(motionX * 1.25, -0.75, 0.75),
+          MathHelper.clamp(motionY * 1.25, -0.75, 0.75),
+          MathHelper.clamp(motionZ * 1.25, -0.75, 0.75)
+        )))
       } else if (ctx.hasContext(Entity::class.java)) {
         val entity = ctx.getContext(Entity::class.java)
         val vector = entity.pos
