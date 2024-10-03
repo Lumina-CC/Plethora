@@ -31,6 +31,7 @@
   "item.plethora.module.module_keyboard": "Keyboard",
   "item.plethora.module.module_keyboard.desc": "Insert as a neural interface module to type while in-game. Right click a computer up to 32 blocks away to type.",
   "item.plethora.module.module_keyboard.close": "Keyboard open. Press ESC to close.",
+  "item.plethora.module.module_keyboard.adjective": "Typing",
 
   "item.plethora.module.module_kinetic": "Kinetic augment",
   "item.plethora.module.module_kinetic.adjective": "Kinetic",
