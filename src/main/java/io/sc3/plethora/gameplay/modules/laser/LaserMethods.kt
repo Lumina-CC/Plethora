@@ -37,7 +37,7 @@ object LaserMethods {
     val yaw = Helpers.normaliseAngle(args.getFiniteDouble(0))
     val pitch = Helpers.normaliseAngle(args.getFiniteDouble(1))
     val potency = args.assertDoubleBetween(2, cfg.minimumPotency, cfg.maximumPotency, "Potency out of range (%s).").toFloat()
-    var canDestroyBlocks = args.optBoolean(3).orElse(true)
+    val canDestroyBlocks = args.optBoolean(3).orElse(true)
     val motionX = -sin(yaw / 180.0f * PI.toFloat()) * cos(pitch / 180.0f * PI.toFloat())
     val motionZ =  cos(yaw / 180.0f * PI.toFloat()) * cos(pitch / 180.0f * PI.toFloat())
     val motionY = -sin(pitch / 180.0f * PI.toFloat())
