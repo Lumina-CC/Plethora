@@ -1,5 +1,6 @@
 package io.sc3.plethora.gameplay.neural;
 
+import io.sc3.plethora.Plethora;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
@@ -58,8 +59,10 @@ public class NeuralInterfaceInventory extends SimpleInventory {
     @Override
     public void setStack(int slot, ItemStack stack) {
         super.setStack(slot, stack);
+      NbtCompound nbt = parent.getOrCreateNbt();
 
-        NbtCompound nbt = parent.getOrCreateNbt();
+
         nbt.putShort(DIRTY, (short) (nbt.getShort(DIRTY) | (1 << slot)));
+      Plethora.log.info(slot + " " + stack + " " + nbt.getShort(DIRTY));
     }
 }

@@ -6,7 +6,8 @@
   "description": "Peripheral provider for ComputerCraft, ported to Fabric.",
   "authors": [
     "SquidDev",
-    "Lemmmy"
+    "Lemmmy",
+    "Herr Katze"
   ],
   "contact": {
     "website": "https://plethora.madefor.cc",

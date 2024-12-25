@@ -1,10 +1,12 @@
 package io.sc3.plethora.gameplay.modules.keyboard
 
+import dan200.computercraft.core.computer.Computer
 import dan200.computercraft.shared.computer.blocks.AbstractComputerBlockEntity
-import dan200.computercraft.shared.computer.blocks.CommandComputerBlockEntity
+import dan200.computercraft.shared.computer.core.ComputerFamily
 import dan200.computercraft.shared.network.container.ComputerContainerData
 import dan200.computercraft.shared.platform.PlatformHelper
 import io.sc3.library.ext.event
+import io.sc3.plethora.Plethora
 import io.sc3.plethora.api.method.IAttachable
 import io.sc3.plethora.api.method.IContextBuilder
 import io.sc3.plethora.api.module.IModuleAccess
@@ -82,10 +84,12 @@ class KeyboardModuleItem(settings: Settings) : ModuleItem("keyboard", settings) 
     val player = access.owner as? ServerPlayerEntity ?: return
     builder.addAttachable(object : IAttachable {
       override fun attach() {
+        Plethora.log.info("Attached to something")
         ServerKeyListener.add(player, access)
       }
 
       override fun detach() {
+        Plethora.log.info("Detached from something")
         ServerKeyListener.remove(player, access)
       }
     })
@@ -117,8 +121,7 @@ class KeyboardModuleItem(settings: Settings) : ModuleItem("keyboard", settings) 
       // block entity was removed (so we can use keyboards with moving turtles)
       // BlockEntityHelpers.isUsable: the base usable check
       // AbstractComputerBlockEntity: lootable locked check, BEH.isUsable
-      // CommandComputerBlockEntity:  isCommandUsable, AbstractComputerBlockEntity.isUsable
-      if (blockEntity is CommandComputerBlockEntity && !CommandComputerBlockEntity.isCommandUsable(player)) {
+      if (!blockEntity.serverComputer!!.family.checkUsable(player)) {
         return false
       }
 

@@ -118,7 +118,8 @@ public class NeuralHelpers {
                     ItemStack newStack = inventory.get(PERIPHERAL_SIZE + i);
                     if (!oldStack.isEmpty() && !ItemStack.areItemsEqual(oldStack, newStack)) {
                         IModuleHandler moduleHandler = (IModuleHandler) oldStack.getItem();
-                        throw new LuaException("The " + moduleHandler.getModule() + " module has been removed");
+                        throw new RuntimeException("what the fuck is going on? " + oldStack + " " + newStack);
+                        //throw new LuaException("The " + moduleHandler.getModule() + " module has been removed");
                     }
                 }
                 return container;
@@ -142,7 +143,7 @@ public class NeuralHelpers {
             .addContext(ContextKeys.ORIGIN, owner, entity(owner));
 
         for (Pair<IModuleHandler, ItemStack> handler : moduleHandlers) {
-            Identifier module = handler.getLeft().getModule();
+           Identifier module = handler.getLeft().getModule();
             NeuralAccess access = accessMap.get(module);
             if (access == null) {
                 accessMap.put(module, access = new NeuralAccess(owner, computer, handler.getLeft(), container));

@@ -4,6 +4,7 @@ import dan200.computercraft.core.computer.ComputerSide
 import dan200.computercraft.impl.PocketUpgrades
 import dan200.computercraft.shared.computer.core.ComputerFamily.ADVANCED
 import dan200.computercraft.shared.computer.core.ServerComputer
+import dan200.computercraft.shared.util.ComponentMap
 import io.sc3.plethora.Plethora
 import io.sc3.plethora.core.executor.TaskRunner
 import io.sc3.plethora.gameplay.neural.NeuralComputerHandler.HEIGHT
@@ -26,7 +27,7 @@ class NeuralComputer(
   pos: BlockPos,
   computerId: Int,
   label: String?
-) : ServerComputer(world, pos, computerId, label, ADVANCED, WIDTH, HEIGHT) {
+) : ServerComputer(world, pos, computerId, label, ADVANCED, WIDTH, HEIGHT, ComponentMap.empty()) {
   var entity: WeakReference<LivingEntity>? = null
     private set
 
@@ -70,8 +71,7 @@ class NeuralComputer(
       entity = if (owner.isAlive) WeakReference(owner) else null
     }
 
-    level = owner.entityWorld as ServerWorld
-    position = owner.blockPos
+    setPosition(owner.entityWorld as ServerWorld,owner.blockPos) // This is required for latest CC:T
 
     // Sync changed slots
     if (dirty != 0) {
@@ -105,6 +105,7 @@ class NeuralComputer(
       }
 
       // If the modules have changed.
+      Plethora.log.info("" +dirty + " " + (dirty shr NeuralHelpers.PERIPHERAL_SIZE))
       if (dirty shr NeuralHelpers.PERIPHERAL_SIZE != 0) {
         try {
           setPeripheral(ComputerSide.BACK, NeuralHelpers.buildModules(this, stacks, owner))
